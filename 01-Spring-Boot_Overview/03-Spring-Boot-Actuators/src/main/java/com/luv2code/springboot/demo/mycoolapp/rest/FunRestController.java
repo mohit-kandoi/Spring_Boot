@@ -17,7 +17,7 @@ public class FunRestController {
     }
     @GetMapping("/fortune")
     public String fortuner(){
-        return "heheheh";
+        return "hahaahah";
     }
 
 }
