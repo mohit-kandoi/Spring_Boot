@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Objects;
+
 @SpringBootApplication
 public class CruddemoApplication {
 
@@ -19,10 +21,18 @@ public class CruddemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO){
 		return runner->{
-				// createStudent(studentDAO);
-
-				createMultipleStudent(studentDAO);
+//			createStudent(studentDAO);
+//			createMultipleStudent(studentDAO);
+			readStudent(studentDAO);
 		};
+	}
+
+	private void readStudent(StudentDAO studentDAO) {
+		Student temp = new Student("x","Y","xy@gmail.com");
+		studentDAO.save(temp);
+		int theId = temp.getId();
+		Student myStudent = studentDAO.findById(theId);
+		System.out.println(myStudent);
 	}
 
 	private void createMultipleStudent(StudentDAO studentDAO) {
