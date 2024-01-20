@@ -1,14 +1,13 @@
 package com.luv2code.cruddemo;
 
 import com.luv2code.cruddemo.DAO.StudentDAO;
-import com.luv2code.cruddemo.DAO.StudentDAOImpl;
 import com.luv2code.cruddemo.entity.Student;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Objects;
+import java.util.List;
 
 @SpringBootApplication
 public class CruddemoApplication {
@@ -23,9 +22,48 @@ public class CruddemoApplication {
 		return runner->{
 //			createStudent(studentDAO);
 //			createMultipleStudent(studentDAO);
-			readStudent(studentDAO);
+//			readStudent(studentDAO);
+//			listOfStudent(studentDAO);
+//			queryForStudentsByLastName(studentDAO);
+//			updateStudent(studentDAO);
+//			deleteStudent(studentDAO);
+			deleteAll(studentDAO);
 		};
 	}
+
+	private void deleteAll(StudentDAO studentDAO) {
+		int numRowsDeleted = studentDAO.deleteAll();
+		System.out.println(numRowsDeleted);
+	}
+
+	private void deleteStudent(StudentDAO studentDAO) {
+		int studentId = 2;
+		studentDAO.delete(studentId);
+
+	}
+
+	private void updateStudent(StudentDAO studentDAO) {
+		int studentId =1;
+		Student mystudent = studentDAO.findById(studentId);
+		mystudent.setFirstName("Mohit");
+		studentDAO.update(mystudent);
+		System.out.println(mystudent);
+	}
+
+	private void queryForStudentsByLastName(StudentDAO studentDAO) {
+		List<Student> theStudent = studentDAO.findByLastName("Kandoi");
+		for(Student temp : theStudent){
+			System.out.println(temp);
+		}
+	}
+
+	private void listOfStudent(StudentDAO studentDAO) {
+		List<Student> temp = studentDAO.findAll();
+		for (Student e : temp){
+			System.out.println(e);
+		}
+	}
+
 
 	private void readStudent(StudentDAO studentDAO) {
 		Student temp = new Student("x","Y","xy@gmail.com");
